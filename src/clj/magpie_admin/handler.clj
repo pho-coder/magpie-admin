@@ -9,9 +9,7 @@
 
 (defroutes app-routes
   (GET "/" [] (home))
-  (GET "/supervisors" [] (let [
-                               ;;supervisors (get-supervisors)
-                               supervisors [1 2 3]]
+  (GET "/supervisors" [] (let [supervisors (get-supervisors)]
                            (prn supervisors)
                            (supervisors-page supervisors)))
   (resources "/")
