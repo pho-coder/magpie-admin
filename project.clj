@@ -2,6 +2,7 @@
   :description "magpie admin interface"
   :url "https://github.com/pho-coder/magpie-admin"
   :dependencies [[org.clojure/clojure "1.5.1"]
+                 [org.clojure/clojurescript "0.0-2156"]
                  [compojure "1.1.6"]
                  [log4j "1.2.17"]
                  [org.clojure/tools.logging "0.2.6"]
