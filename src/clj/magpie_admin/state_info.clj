@@ -20,8 +20,13 @@
 (defn get-supervisors []
   (check-zk-client)
   (let [supervisors (get-children @*zk-client* supervisors-path)
-        supervisors-data (map #(read-str (String. (get-data @*zk-client* (str supervisors-path "/" %))) :key-fn keyword) supervisors)]
-    (prn supervisors-data)
+        get-supervisor-data (fn [supervisor]
+                          (read-str (String. (get-data @*zk-client* (str supervisors-path "/" supervisor))) :key-fn keyword))]
+    (reset! *supervisors-info* (reduce (fn [m k]
+                                         (assoc m k (get-supervisor-data k)))
+                                       {}
+                                       supervisors))
+    (prn *supervisors-info*)
     supervisors))
 
 (defn start-tracking []
