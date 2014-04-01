@@ -1,7 +1,7 @@
 (ns magpie-admin.home
-  (:require-macros [hiccups.core :refer [html]])
+  (:require-macros [hiccups.core :refer [html]]
+                   [hiccups.util :refer [to-str]])
   (:require [hiccups.runtime]
-            [hiccups.util :refer [to-str]]
             [domina :refer [by-id set-text! append! destroy! by-class]]
             [domina.events :refer [listen!]]
             [shoreleave.remotes.http-rpc :refer [remote-callback]]))
