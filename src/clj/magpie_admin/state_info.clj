@@ -26,7 +26,7 @@
                                          (assoc m k (get-supervisor-data k)))
                                        {}
                                        supervisors))
-    (prn *supervisors-info*)
+    (prn @*supervisors-info*)
     supervisors))
 
 (defn start-tracking []
