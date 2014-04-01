@@ -27,7 +27,7 @@
                                        {}
                                        supervisors))
     (prn @*supervisors-info*)
-    supervisors))
+    @*supervisors-info*))
 
 (defn start-tracking []
   true)
