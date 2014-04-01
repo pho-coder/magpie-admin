@@ -19,7 +19,7 @@
 (defn get-supervisors []
   (check-zk-client)
   (let [supervisors (get-children @*zk-client* supervisors-path)
-        supervisors-data (map #(get-data @*zk-client* (str supervisors-path "/" %)) supervisors)]
+        supervisors-data (map #(String. (get-data @*zk-client* (str supervisors-path "/" %))) supervisors)]
     (prn supervisors-data)
     supervisors))
 
