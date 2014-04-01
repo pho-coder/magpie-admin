@@ -3,6 +3,8 @@
 
 (def ^:dynamtic *zk-client* (atom nil))
 
+(def supervisors-path "/magpie/supervisors")
+
 (def ^:dynamtic *supervisors-info* (atom nil))
 
 (def ^:dynamtic *tracking*)
@@ -16,7 +18,10 @@
 
 (defn get-supervisors []
   (check-zk-client)
-  (get-children @*zk-client* "/magpie/supervisors"))
+  (let [supervisors (get-children @*zk-client* supervisors-path)
+        supervisors-data (map (get-data @*zk-client* (str supervisors-path "/" %)) supervisors)]
+    (prn supervisors-data)
+    supervisors))
 
 (defn start-tracking []
   true)
