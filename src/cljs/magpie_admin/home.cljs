@@ -19,10 +19,16 @@
                      (destroy! (by-class "supervisors"))
                      (let [supervisors (:supervisors info)
                            tasks (:tasks info)]
-                       (if (= (count supervisors) 0)
+
+                       (if (empty? supervisors)
                          (set-text! (by-id "supervisors") "There are no supervisors alive now!")
                          (doseq [supervisor (keys supervisors)]
-                           (append! (by-id "supervisors_list") (html [:li {:class "supervisors-class" :id supervisor} (get supervisors supervisor)]))))))))
+                           (append! (by-id "supervisors_list") (html [:li {:class "supervisors-class" :id supervisor} (get supervisors supervisor)]))))
+
+                       (if (empty? tasks)
+                         (set-text! (by-id "tasks") "There are no tasks alive now!")
+                         (doseq [task (keys tasks)]
+                           (append! (by-id "tasks_list") (html [:li {:class "tasks-class" :id task} (get tasks task)]))))))))
 
 (defn ^:export init []
   (if (and js/document (aget js/document "getElementById"))
