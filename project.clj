@@ -10,7 +10,7 @@
                  [org.apache.curator/curator-framework "2.4.0"]
                  [enlive "1.1.5"]
                  [domina "1.0.3-SNAPSHOT"]
-                 [hiccups "0.2.0"]
+                 [hiccups "0.3.0"]
                  [org.clojars.magomimmo/shoreleave-remote-ring "0.3.1-SNAPSHOT"]
                  [org.clojars.magomimmo/shoreleave-remote "0.3.1-SNAPSHOT"]
                  [org.clojure/data.json "0.2.4"]]

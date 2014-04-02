@@ -1,7 +1,6 @@
 (ns magpie-admin.home
-  (:require-macros [hiccups.core :refer [html]]
-                   [hiccups.util :refer [to-str]])
-  (:require [hiccups.runtime]
+  (:require-macros [hiccups.core :refer [html]])
+  (:require [hiccups.runtime :as hiccupsrt]
             [domina :refer [by-id set-text! append! destroy! by-class]]
             [domina.events :refer [listen!]]
             [shoreleave.remotes.http-rpc :refer [remote-callback]]))
@@ -21,7 +20,7 @@
                      (if (= (count supervisors) 0)
                        (set-text! (by-id "supervisors") "There are no supervisors alive now!")
                        (doseq [supervisor (keys supervisors)]
-                         (append! (by-id "supervisors_list") (html [:li.supervisors (to-str (str supervisor ": " (get supervisor supervisors)))])))))))
+                         (append! (by-id "supervisors_list") (html [:li.supervisors#supervisor])))))))
 
 (defn ^:export init []
   (if (and js/document (aget js/document "getElementById"))
