@@ -40,7 +40,7 @@
                                                        (let [v (get (get tasks task) k)]
                                                          (case k
                                                            :start-time (js/Date. v)
-                                                           :supervisor "1232"
+                                                           :supervisor (:ip (get supervisors (:supervisor task)))
                                                            v)))])]))))
                        
                        (if (empty? supervisors)
