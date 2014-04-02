@@ -18,7 +18,8 @@
                    (fn [info]
                      (destroy! (by-class "supervisors"))
                      (let [supervisors (:supervisors info)
-                           tasks (:tasks info)]
+                           tasks (:tasks info)
+                           offset (:offset info)]
 
                        (if (empty? supervisors)
                          (set-text! (by-id "supervisors") "There are no supervisors alive now!")
@@ -28,7 +29,12 @@
                        (if (empty? tasks)
                          (set-text! (by-id "tasks") "There are no tasks alive now!")
                          (doseq [task (keys tasks)]
-                           (append! (by-id "tasks_list") (html [:li {:class "tasks-class" :id task} (get tasks task)]))))))))
+                           (append! (by-id "tasks_list") (html [:li {:class "tasks-class" :id task} (get tasks task)]))))
+
+                       (if (empty? offset)
+                         (set-text! (by-id "offset") "There are no offset now!")
+                         (doseq [ofst (keys offset)]
+                           (append! (by-id "offset_list") (html [:li {:class "offset-class" :id ofst} (get offset ofst)]))))))))
 
 (defn ^:export init []
   (if (and js/document (aget js/document "getElementById"))
