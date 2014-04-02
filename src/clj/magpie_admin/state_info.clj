@@ -62,4 +62,5 @@
   (check-zk-client)
   (get-supervisors)
   (get-tasks)
+  (get-offset)
   true)
