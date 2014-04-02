@@ -37,10 +37,10 @@
                                                            (keys (get tasks task)))]
                                              [:li (str (name k)
                                                        " : "
-                                                       (let [v (get (get tasks task) k)]
+                                                       (let [v (k (get tasks task))]
                                                          (case k
                                                            :start-time (js/Date. v)
-                                                           :supervisor (:ip (get supervisors (:supervisor task)))
+                                                           :supervisor (:ip (get supervisors v))
                                                            v)))])]))))
                        
                        (if (empty? supervisors)
