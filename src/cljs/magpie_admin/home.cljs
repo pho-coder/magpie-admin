@@ -24,16 +24,24 @@
                        (if (empty? tasks)
                          (set-text! (by-id "tasks-info") "There are no tasks alive now!")
                          (doseq [task (keys tasks)]
-                           (append! (by-id "tasks-info") (html [:ul [:li (str "name : " task)] (for [k (filter (fn [ky]
-                                                                                                                 (if (= ky :start-time)
-                                                                                                                   true
-                                                                                                                   false))
-                                                                                                               (keys (get tasks task)))] [:li (str (name k)
-                                                                                                                                          " : "
-                                                                                                                                          (let [v (get (get tasks task) k)]
-                                                                                                                                            (if (= k :start-time)
-                                                                                                                                              (js/Date. v)
-                                                                                                                                              v)))])]))))
+                           (append! (by-id "tasks-info")
+                                    (html [:ul [:li (str "name : " task)]
+                                           (for [k (filter (fn [ky]
+                                                             (if (or (= ky :start-time)
+                                                                     (= ky :magpie-type)
+                                                                     (= ky :id)
+                                                                     (= ky :db-type)
+                                                                     (= ky :supervisor))
+                                                               true
+                                                               false))
+                                                           (keys (get tasks task)))]
+                                             [:li (str (name k)
+                                                       " : "
+                                                       (let [v (get (get tasks task) k)]
+                                                         (case k
+                                                           :start-time (js/Date. v)
+                                                           :supervisor "1232"
+                                                           v)))])]))))
                        
                        (if (empty? supervisors)
                          (set-text! (by-id "supervisors") "There are no supervisors alive now!")
