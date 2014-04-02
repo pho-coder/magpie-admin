@@ -7,7 +7,7 @@
 
 (def supervisors-path "/magpie/supervisors")
 
-(def assignments-path "/magpie/assignments-path")
+(def assignments-path "/magpie/assignments")
 
 (def ^:dynamtic *supervisors-info* (atom nil))
 
