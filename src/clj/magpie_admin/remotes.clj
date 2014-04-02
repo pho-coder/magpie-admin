@@ -7,12 +7,13 @@
             [magpie-admin.state-info :refer [start-tracking *supervisors-info* *tasks-info* *offset-info*]]))
 
 (defremote rpc-get-info []
-  (info "rpc get info")
+  (info "rpc-get-info")
   {:supervisors @*supervisors-info*
    :tasks @*tasks-info*
    :offset @*offset-info*})
 
 (defremote rpc-start-tracking []
+  (info "rpc-start-tracking")
   (start-tracking))
 
 (def app (-> (var handler)
