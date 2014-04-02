@@ -20,7 +20,7 @@
                      (if (= (count supervisors) 0)
                        (set-text! (by-id "supervisors") "There are no supervisors alive now!")
                        (doseq [supervisor (keys supervisors)]
-                         (append! (by-id "supervisors_list") (html [:li {:class "supervisors-class" :id supervisor} "..."])))))))
+                         (append! (by-id "supervisors_list") (html [:li {:class "supervisors-class" :id supervisor} (get supervisors supervisor)])))))))
 
 (defn ^:export init []
   (if (and js/document (aget js/document "getElementById"))
