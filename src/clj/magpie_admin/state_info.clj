@@ -9,9 +9,13 @@
 
 (def assignments-path "/magpie/assignments")
 
+(def offset-path "/magpie/offset")
+
 (def ^:dynamtic *supervisors-info* (atom nil))
 
 (def ^:dynamtic *tasks-info* (atom nil))
+
+(def ^:dynamtic *offset-info* (atom nil))
 
 (def ^:dynamtic *tracking*)
 
@@ -25,7 +29,7 @@
   (check-zk-client)
   (let [supervisors (get-children @*zk-client* supervisors-path)
         get-supervisor-data (fn [supervisor]
-                          (read-str (String. (get-data @*zk-client* (str supervisors-path "/" supervisor))) :key-fn keyword))]
+                          (read-str ^String (String. (get-data @*zk-client* (str supervisors-path "/" supervisor))) :key-fn keyword))]
     (reset! *supervisors-info* (reduce (fn [m k]
                                          (assoc m k (get-supervisor-data k)))
                                        {}
@@ -36,12 +40,23 @@
   (check-zk-client)
   (let [tasks (get-children @*zk-client* assignments-path)
         get-task-data (fn [task]
-                        (read-str (String. (get-data @*zk-client* (str assignments-path "/" task))) :key-fn keyword))]
+                        (read-str ^String (String. (get-data @*zk-client* (str assignments-path "/" task))) :key-fn keyword))]
     (reset! *tasks-info* (reduce (fn [m k]
                                    (assoc m k (get-task-data k)))
                                  {}
                                  tasks))
     (info @*tasks-info*)))
+
+(defn get-offset []
+  (check-zk-client)
+  (let [offset (get-children @*zk-client* offset-path)
+        get-offset-data (fn [ofst]
+                          (read-str ^String (String. (get-data @*zk-client* (str offset-path "/" ofst))) :key-fn keyword))]
+    (reset! *offset-info* (reduce (fn [m k]
+                                    (assoc m k (get-offset-data k)))
+                                  {}
+                                  offset))
+    (info @*offset-info*)))
 
 (defn start-tracking []
   (check-zk-client)
