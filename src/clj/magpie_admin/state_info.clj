@@ -51,7 +51,7 @@
   (check-zk-client)
   (let [offset (get-children @*zk-client* offset-path)
         get-offset-data (fn [ofst]
-                          (read-str (String. (get-data @*zk-client* (str offset-path "/" ofst))) :key-fn keyword))]
+                          (String. (get-data @*zk-client* (str offset-path "/" ofst))))]
     (reset! *offset-info* (reduce (fn [m k]
                                     (assoc m k (get-offset-data k)))
                                   {}
