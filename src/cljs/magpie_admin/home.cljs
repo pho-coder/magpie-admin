@@ -27,4 +27,4 @@
 (defn ^:export init []
   (if (and js/document (aget js/document "getElementById"))
     (do (listen! (by-id "start_tracking") :click start_tracking)
-        (listen! (by-id "get_supervisors") :click get_supervisors))))
+        (listen! (by-id "get_info") :click get_info))))
