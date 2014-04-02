@@ -21,15 +21,20 @@
                            tasks (:tasks info)
                            offset (:offset info)]
 
+                       (if (empty? tasks)
+                         (set-text! (by-id "tasks-info") "There are no tasks alive now!")
+                         (doseq [task (keys tasks)]
+                           (append! (by-id "tasks-info") (html [:ul (for [k (keys (get tasks task))] [:li (str k " : " (get (get tasks task) k))])]))))
+                       
                        (if (empty? supervisors)
                          (set-text! (by-id "supervisors") "There are no supervisors alive now!")
                          (doseq [supervisor (keys supervisors)]
                            (append! (by-id "supervisors_list") (html [:li {:class "supervisors-class" :id supervisor} (get supervisors supervisor)]))))
 
                        (if (empty? tasks)
-                         (set-text! (by-id "tasks") "There are no tasks alive now!")
+                         (set-text! (by-id "tasks_detail") "There are no tasks alive now!")
                          (doseq [task (keys tasks)]
-                           (append! (by-id "tasks_list") (html [:li {:class "tasks-class" :id task} (get tasks task)]))))
+                           (append! (by-id "tasks_detail_list") (html [:li {:class "tasks-detail-class" :id task} (get tasks task)]))))
 
                        (if (empty? offset)
                          (set-text! (by-id "offset") "There are no offset now!")
