@@ -32,7 +32,7 @@
                                                                                                                                           " : "
                                                                                                                                           (let [v (get (get tasks task) k)]
                                                                                                                                             (if (= k :start-time)
-                                                                                                                                              v
+                                                                                                                                              (js/Date. v)
                                                                                                                                               v)))])]))))
                        
                        (if (empty? supervisors)
