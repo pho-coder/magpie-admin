@@ -24,7 +24,7 @@
                        (if (empty? tasks)
                          (set-text! (by-id "tasks-info") "There are no tasks alive now!")
                          (doseq [task (keys tasks)]
-                           (append! (by-id "tasks-info") (html [:ul "abcd" (for [k (keys (get tasks task))] [:li (str k " : " (get (get tasks task) k))])]))))
+                           (append! (by-id "tasks-info") (html [:ul [:li (str "name : " task)] (for [k (keys (get tasks task))] [:li (str (name k) " : " (get (get tasks task) k))])]))))
                        
                        (if (empty? supervisors)
                          (set-text! (by-id "supervisors") "There are no supervisors alive now!")
