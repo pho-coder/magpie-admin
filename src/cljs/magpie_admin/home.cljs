@@ -3,7 +3,9 @@
   (:require [hiccups.runtime :as hiccupsrt]
             [domina :refer [by-id set-text! append! destroy! by-class]]
             [domina.events :refer [listen!]]
-            [shoreleave.remotes.http-rpc :refer [remote-callback]]))
+            [shoreleave.remotes.http-rpc :refer [remote-callback]]
+
+            [magpie-admin.util.utils :refer [get-datetime]]))
 
 (defn start_tracking []
   (remote-callback :rpc-start-tracking []
@@ -30,7 +32,10 @@
                                                                                                                    false))
                                                                                                                (keys (get tasks task)))] [:li (str (name k)
                                                                                                                                           " : "
-                                                                                                                                          (get (get tasks task) k))])]))))
+                                                                                                                                          (let [v (get (get tasks task) k)]
+                                                                                                                                            (if (= k :start-time)
+                                                                                                                                              (get-datetime v)
+                                                                                                                                              v)))])]))))
                        
                        (if (empty? supervisors)
                          (set-text! (by-id "supervisors") "There are no supervisors alive now!")
