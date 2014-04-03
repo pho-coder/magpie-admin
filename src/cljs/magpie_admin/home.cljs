@@ -41,6 +41,7 @@
                                                          (case k
                                                            :start-time (js/Date. v)
                                                            :supervisor (:ip (get supervisors v))
+                                                           :magpie-type (str v " - offset: " (get offset task))
                                                            v)))])]))))
                        
                        (if (empty? supervisors)
