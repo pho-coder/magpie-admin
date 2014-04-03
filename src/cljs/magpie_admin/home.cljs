@@ -45,11 +45,36 @@
                                                                           (str v " - offset: " (get offset task))
                                                                           v)
                                                            v)))])]))))
+
+                       (if (empty? supervisors)
+                         (set-text! (by-id "supervisors-info") "There are no supervisors alive now!")
+                         (doseq [supervisor (keys supervisors)]
+                           (append! (by-id "supervisors-info")
+                                    (html [:ul [:li (str "name : " supervisor)]
+                                           (for [k (filter (fn [ky]
+                                                             (if (or (= ky :hostname)
+                                                                     (= ky :free-swap)
+                                                                     (= ky :free-memory)
+                                                                     (= ky :ip)
+                                                                     (= ky :load-avg))
+                                                               true
+                                                               false))
+                                                           (keys (get supervisors supervisor)))]
+                                             [:li (str (name k)
+                                                       " : "
+                                                       (let [v (k (get supervisors supervisor))]
+                                                         (case k
+                                                           :ip (str v " contains tasks:" (reduce #(str %1 " " %2) "" (filter (fn [task]
+                                                                                                                               (if (= (:ip (get tasks task)) v)
+                                                                                                                                 true
+                                                                                                                                 false))
+                                                                                                                             (keys tasks))))
+                                                           v)))])]))))
                        
                        (if (empty? supervisors)
-                         (set-text! (by-id "supervisors") "There are no supervisors alive now!")
+                         (set-text! (by-id "supervisors-detail") "There are no supervisors alive now!")
                          (doseq [supervisor (keys supervisors)]
-                           (append! (by-id "supervisors_list") (html [:li {:class "supervisors-class" :id supervisor} (get supervisors supervisor)]))))
+                           (append! (by-id "supervisors-detail-list") (html [:li {:class "supervisors-detail-class" :id supervisor} (get supervisors supervisor)]))))
 
                        (if (empty? tasks)
                          (set-text! (by-id "tasks_detail") "There are no tasks alive now!")
