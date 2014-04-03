@@ -69,7 +69,7 @@
                                                        (let [v (k (get supervisors supervisor))]
                                                          (case k
                                                            :ip (str v " contains tasks:" (reduce #(str %1 " " %2) "" (filter (fn [task]
-                                                                                                                               (if (= (:ip (get tasks task)) v)
+                                                                                                                               (if (= (:supervisor (get tasks task)) supervisor)
                                                                                                                                  true
                                                                                                                                  false))
                                                                                                                              (keys tasks))))
