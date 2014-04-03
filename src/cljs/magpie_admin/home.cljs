@@ -21,6 +21,10 @@
                            tasks (:tasks info)
                            offset (:offset info)]
 
+                       (.log js/console supervisors)
+                       (.log js/console tasks)
+                       (.log js/console offset)
+                       
                        (if (empty? tasks)
                          (set-text! (by-id "tasks-info") "There are no tasks alive now!")
                          (doseq [task (keys tasks)]
