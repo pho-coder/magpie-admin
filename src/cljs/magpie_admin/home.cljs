@@ -41,7 +41,9 @@
                                                          (case k
                                                            :start-time (js/Date. v)
                                                            :supervisor (:ip (get supervisors v))
-                                                           :magpie-type (str v " - offset: " (get offset task))
+                                                           :magpie-type (if (and (= (:db-type (get tasks task)) "sqlserver") (= v "parser"))
+                                                                          (str v " - offset: " (get offset task))
+                                                                          v)
                                                            v)))])]))))
                        
                        (if (empty? supervisors)
